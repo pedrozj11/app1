@@ -1,0 +1,31 @@
+SELECT DISTINCT ?item ?itemLabel ?fechanacim ?genero ?muerte ?lmuerteLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P106 ?ocupacion.
+  ?ocupacion wdt:P279 ?ocupaciones.
+  VALUES (?ocupaciones) {
+    (wd:Q36180)
+    (wd:Q49757)
+    (wd:Q6625963)
+    (wd:Q214917)
+  }
+}
+
+¿Es hombre o mujer?
+  - masculino: ?item wdt:P21 wd:Q6581097.
+  - femenino: ?item wdt:P21 wd:Q6581072.
+¿Nació antes del 1500 o en el 1500?
+  - Si: ?item wdt:P569 ?fechanacim.
+        FILTER((YEAR(?fechanacim)) <= 1500)
+  - No: ?item wdt:P569 ?fechanacim.
+        FILTER((YEAR(?fechanacim)) > 1500)
+¿En qué país nació?
+¿Está vivo?
+  - No:
+  - Si: FILTER(NOT EXISTS{?item wdt:P570 ?muerte})
+        FILTER(NOT EXISTS{?item wdt:P20 ?lmuerte})
+  ¿Escribía poesía?
+    - Si: ?item wdt:P106 wd:Q49757.
+    - No: ¿Escribía novelas?
+            - Si: ?item wdt:P106 wd:Q6625963.
+            - No: ¿Escribía teatro?
+                    - Si: ?item wdt:P106 wd:Q487596.

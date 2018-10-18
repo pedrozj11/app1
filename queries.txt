@@ -1,7 +1,34 @@
-SELECT ?item ?itemLabel ?occup WHERE {
+SELECT ?item ?itemLabel ?fechanacim WHERE {
   SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
-  ?item wdt:P279* wd:Q36180.
+  ?item wdt:P106 ?ocupacion.
+  ?ocupacion wdt:P279* wd:Q36180.
+  ?item wdt:P569 ?fechanacim.
+  FILTER((YEAR(?fechanacim)) = 1999)
 }
-LIMIT 100000
+LIMIT 20
 
-//query para coger todos los escritores. query base
+//recogemos las personas que son escritores o subclase de escritores que nacieron antes del 99. 
+
+
+
+SELECT ?item ?itemLabel ?fechanacim ?genero WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P106 ?ocupacion.
+  ?ocupacion wdt:P279* ?ocupaciones.
+  VALUES (?ocupaciones) {
+    (wd:Q36180)
+    (wd:Q49757)
+    (wd:Q6625963)
+    (wd:Q214917)
+  }
+  ?item wdt:P21 wd:Q6581097.
+  ?item wdt:P569 ?fechanacim.
+  ?item wdt:P19 wd:Q29.
+  ?item wdt:P1412 wd:Q1321.
+  FILTER((YEAR(?fechanacim)) <= 1999)
+}
+LIMIT 20
+
+//guardamos la ocupacion, guardamos las sublclases de ocupaciones, cogemos solo los 4 values, 
+//filtramos por genero (masc), guardamos la fecnac, filtramos por lugar de nacimeinto,
+//filtramos por lengua que habla, filtramos con la fecha guardada

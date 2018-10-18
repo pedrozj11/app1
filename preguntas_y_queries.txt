@@ -25,9 +25,14 @@ SELECT DISTINCT ?item ?itemLabel ?fechanacim ?genero ?muerte ?lmuerteLabel WHERE
             -SI: ?item wdt:P509 wd:Q12078.
   - Si: FILTER(NOT EXISTS{?item wdt:P570 ?muerte})
         FILTER(NOT EXISTS{?item wdt:P20 ?lmuerte})
+
   ¿Escribía poesía?
     - Si: ?item wdt:P106 wd:Q49757.
     - No: ¿Escribía novelas?
             - Si: ?item wdt:P106 wd:Q6625963.
             - No: ¿Escribía teatro?
                     - Si: ?item wdt:P106 wd:Q487596.
+
+  ¿Tienes hijos?
+  -Si: ?item wdt:P40 ?hijos.
+  -No: FILTER(NOT EXISTS{?item wdt:P40 ?hijos})

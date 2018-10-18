@@ -9,12 +9,12 @@
     <body>
         <?php 
         
-        $pregunta=array('¿Es un hombre?','¿Nació antes de 1500?','','¿Está vivo?', '¿Escribía poesía?', '¿Escribía novela?', '¿Escribía teatro?', '¿Murió de Cancer?');
+        $pregunta=array('¿Es un hombre?','¿Nació antes de 1500?','¿Tiene hijos?','¿Está vivo?', '¿Escribía poesía?', '¿Escribía novela?', '¿Escribía teatro?', '¿Murió de Cancer?');
 
         
     
         if($respuestas!=''){
-            
+
             for($i=0; $i<sizeof($respuestas); $i++){
              
                 echo $respuestas[$i];

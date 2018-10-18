@@ -68,19 +68,19 @@ class JuegoController extends Controller
             
             }
 
-            /* EN QUE PAÍS NACIÓ? */
+            /* TIENE HIJOS? */
 
             if($i==2){
 
                 if(respuestas[2]==1){
 
-                    $query.="";
+                    $query.="?item wdt:P40 ?hijos.";
                    
                 }
 
                 else{
 
-                    $query.="";
+                    $query.="FILTER(NOT EXISTS{?item wdt:P40 ?hijos})";
 
                 }
                

@@ -12,5 +12,10 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('inicio');
 });
+
+Route::get('/juego', 'JuegoController@preguntar');
+
+Route::get('/fin-juego', 'JuegoController@finalizarJuego');
+

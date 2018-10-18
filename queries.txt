@@ -32,3 +32,32 @@ LIMIT 20
 //guardamos la ocupacion, guardamos las sublclases de ocupaciones, cogemos solo los 4 values, 
 //filtramos por genero (masc), guardamos la fecnac, filtramos por lugar de nacimeinto,
 //filtramos por lengua que habla, filtramos con la fecha guardada
+
+PHP CODE
+
+<?php
+
+$endpointUrl = 'https://query.wikidata.org/sparql';
+$sparqlQuery = <<< 'SPARQL'
+SELECT DISTINCT ?item ?itemLabel ?fechanacim ?muerte ?lmuerteLabel WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P106 ?ocupacion.
+  ?ocupacion wdt:P279 ?ocupaciones.
+  VALUES (?ocupaciones) {
+    (wd:Q36180)
+    (wd:Q49757)
+    (wd:Q6625963)
+    (wd:Q214917)
+  }
+  ?item wdt:P27 wd:Q29.
+  ?item wdt:P21 wd:Q6581072.
+  ?item wdt:P569 ?fechanacim.
+  FILTER(EXISTS{?item wdt:P570 ?muerte} || EXISTS{?item wdt:P20 ?lmuerte}) 
+  ?item wdt:P569 ?fechanacim.
+  FILTER((YEAR(?fechanacim)) <= 1700)
+  FILTER((YEAR(?fechanacim)) >= 1600)
+}
+LIMIT 200
+SPARQL;
+
+echo file_get_contents( $endpointUrl . '?query=' . urlencode( $sparqlQuery )  );

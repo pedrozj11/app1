@@ -20,7 +20,7 @@ SELECT DISTINCT ?item ?itemLabel ?fechanacim ?genero ?muerte ?lmuerteLabel WHERE
         FILTER((YEAR(?fechanacim)) > 1500)
 ¿En qué país nació?
 ¿Está vivo?
-  - No:
+  - No: FILTER(EXISTS{?item wdt:P570 ?muerte} || EXISTS{?item wdt:P20 ?lmuerte})
   - Si: FILTER(NOT EXISTS{?item wdt:P570 ?muerte})
         FILTER(NOT EXISTS{?item wdt:P20 ?lmuerte})
   ¿Escribía poesía?

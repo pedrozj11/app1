@@ -1,0 +1,7 @@
+SELECT ?item ?itemLabel ?occup WHERE {
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". }
+  ?item wdt:P279* wd:Q36180.
+}
+LIMIT 100000
+
+//query para coger todos los escritores. query base

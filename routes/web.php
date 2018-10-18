@@ -15,7 +15,11 @@ Route::get('/', function () {
     return view('inicio');
 });
 
-Route::get('/juego', 'JuegoController@preguntar');
+Route::get('/juego', function () {
+    return view('juego', ['respuestas' => '']);
+});
+
+Route::post('/juego','JuegoController@preguntar');
 
 Route::get('/fin-juego', 'JuegoController@finalizarJuego');
 

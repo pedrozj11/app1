@@ -8,7 +8,18 @@ class JuegoController extends Controller
 {
    public function preguntar(Request $request){
        
-        $query="PARTE COMUN";
+        $query="SELECT DISTINCT ?item ?itemLabel ?fechanacim ?genero ?muerte ?lmuerteLabel WHERE {
+            SERVICE wikibase:label { bd:serviceParam wikibase:language \"[AUTO_LANGUAGE],en\". }
+            ?item wdt:P106 ?ocupacion.
+            ?ocupacion wdt:P279 ?ocupaciones.
+            VALUES (?ocupaciones) {
+              (wd:Q36180)
+              (wd:Q49757)
+              (wd:Q6625963)
+              (wd:Q214917)
+            }
+          }
+          ";
         $respuestas= explode(",",$request->input('almacenamiento'));
         
         array_push($respuestas, $request->input('respuesta'));
@@ -20,85 +31,93 @@ class JuegoController extends Controller
 
 
             if($i==0){
-
+                /* TIENE QUE SER HOMBRE = SI */
                 if(respuestas[0]==1){
 
-                    $query.="";
+                    $query.=" ?item wdt:P21 wd:Q6581097.";
                    
                 }
 
                 else{
 
-                    $query.="";
+                    $query.=" ?item wdt:P21 wd:Q6581072.";
 
                 }
                
             
             }
+
+            /* ¿Nació antes del 1500 o en el 1500? */
 
             if($i==1){
 
                 if(respuestas[1]==1){
 
-                    $query.="";
+                    $query.=" ?item wdt:P569 ?fechanacim.
+                    FILTER((YEAR(?fechanacim)) <= 1500)";
                    
                 }
 
                 else{
 
-                    $query.="";
+                    $query.=" ?item wdt:P569 ?fechanacim.
+                    FILTER((YEAR(?fechanacim)) > 1500)";
 
                 }
                
             
             }
+
+            /* TIENE HIJOS? */
 
             if($i==2){
 
                 if(respuestas[2]==1){
 
-                    $query.="";
+                    $query.="?item wdt:P40 ?hijos.";
                    
                 }
 
                 else{
 
-                    $query.="";
+                    $query.="FILTER(NOT EXISTS{?item wdt:P40 ?hijos})";
 
                 }
                
             
             }
             
+            /* ESTÁ VIVO? */
 
             if($i==3){
 
                 if(respuestas[3]==1){
 
-                    $query.="";
+                    $query.="FILTER(NOT EXISTS{?item wdt:P570 ?muerte})
+                    FILTER(NOT EXISTS{?item wdt:P20 ?lmuerte})";
                 }
 
                 else{
-
-                    $query.="";
+                        /* NO SE SABE SI ESTÁ BIEN */
+                    $query.=" ?item wdt:P20 ?lmuerte.";
 
                 }
                
             
             }
             
-
+           /* ESBRIBÍA POESÍA? */ 
             if($i==4){
 
                 if(respuestas[4]==1){
 
-                    $query.="";
+                    $query.="?item wdt:P106 wd:Q49757.";
                    
                 }
 
                 else{
 
-                    $query.="";
+                    $query.="FILTER(NOT EXISTS{?item wdt:P106 wd:Q49757})";
 
                 }
                
@@ -123,17 +142,20 @@ class JuegoController extends Controller
 
         for ($i=5; $i < 7; $i++) {
             
+            
+            /* ESCRIBÍA NOVELA? */
+
             if($i==5){
 
                 if(respuestas[5]==1){
 
-                    $query.="";
+                    $query.="?item wdt:P106 wd:Q6625963.";
                 
                 }
 
                 else{
 
-                    $query.="";
+                    $query.="FILTER(NOT EXISTS{?item wdt:P106 wd:Q6625963})";
 
                 }
             
@@ -144,13 +166,13 @@ class JuegoController extends Controller
 
                 if(respuestas[6]==1){
 
-                    $query.="";
+                    $query.=" ?item wdt:P106 wd:Q487596.";
                 
                 }
 
                 else{
 
-                    $query.="";
+                    $query.="FILTER(NOT EXISTS{?item wdt:P106 wd:Q487596})";
 
                 }
             

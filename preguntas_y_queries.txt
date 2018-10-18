@@ -21,6 +21,8 @@ SELECT DISTINCT ?item ?itemLabel ?fechanacim ?genero ?muerte ?lmuerteLabel WHERE
 ¿En qué país nació?
 ¿Está vivo?
   - No:
+          ¿Murió de cáncer?
+            -SI: ?item wdt:P509 wd:Q12078.
   - Si: FILTER(NOT EXISTS{?item wdt:P570 ?muerte})
         FILTER(NOT EXISTS{?item wdt:P20 ?lmuerte})
   ¿Escribía poesía?

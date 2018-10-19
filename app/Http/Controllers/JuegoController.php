@@ -139,19 +139,20 @@ class JuegoController extends Controller
             
         }
 
-        echo $query . $endquery;
 
         $resultado=file_get_contents( $endpointUrl . '?format=json&query=' . urlencode($query . $endquery)  );
 
-        echo $resultado;
+       $resultadoF= json_decode($resultado);
+        /*echo '<pre>';
+            print_r($resultadoF);
+        echo '</pre>';*/
         /* HACER QUERY  SPARQL*/ 
+        if(sizeof($resultadoF->results->bindings)>3){ 
 
-        /*if(sizeof($resultado)<10){
+            echo "¿Tu autor se llama " . $resultadoF->results->bindings[0]->itemLabel->value . "?" . '<a href="/fin-juego">' . "Correcto " .'</a>';
+        };
 
-            return view('finJuego', ['bool'=>'ganaste']);
 
-        }
-*/
        }
 
     /*SIGUIENTES 3 PREGUNTAS */

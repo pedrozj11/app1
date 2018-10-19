@@ -17,7 +17,7 @@
 
             for($i=0; $i<sizeof($respuestas); $i++){
              
-                echo $respuestas[$i];
+                /*echo $respuestas[$i];*/
 
             }
             

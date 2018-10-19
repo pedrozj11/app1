@@ -12,7 +12,7 @@
 </head>
 <body class="w-100 h-100 d-flex flex-column justify-content-center align-items-center" style="background-color: #d1d7dc">
     
-    <h1 style="margin-bottom: 60px;"> Shit! He perdido. Ganaste!</h1 >
+    <h1 style="margin-bottom: 60px;"> Bien! Has perdido. Gané!</h1 >
        
        
         

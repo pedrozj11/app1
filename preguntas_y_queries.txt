@@ -13,12 +13,13 @@ SELECT DISTINCT ?item ?itemLabel ?fechanacim ?genero ?muerte ?lmuerteLabel WHERE
 ¿Es hombre o mujer?
   - masculino: ?item wdt:P21 wd:Q6581097.
   - femenino: ?item wdt:P21 wd:Q6581072.
+
 ¿Nació antes del 1500 o en el 1500?
   - Si: ?item wdt:P569 ?fechanacim.
         FILTER((YEAR(?fechanacim)) <= 1500)
   - No: ?item wdt:P569 ?fechanacim.
         FILTER((YEAR(?fechanacim)) > 1500)
-¿En qué país nació?
+
 ¿Está vivo?
   - No:
   - Si: FILTER(NOT EXISTS{?item wdt:P570 ?muerte})
@@ -41,4 +42,8 @@ SELECT DISTINCT ?item ?itemLabel ?fechanacim ?genero ?muerte ?lmuerteLabel WHERE
 
 ¿Tiene hermanos?
   - Si: ?item wdt:P3373 ?hermanos.
-  - No:FILTER(NOT EXISTS{?item wdt:P3373 ?hermanos})
+  - No: FILTER(NOT EXISTS{?item wdt:P3373 ?hermanos})
+
+¿Tuvó alguna esposa?
+  - Si: ?item wdt:P26 ?esposa.
+  - No: FILTER(NOT EXISTS{?item wdt:P26 ?esposa})

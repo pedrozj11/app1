@@ -107,7 +107,7 @@ class JuegoController extends Controller
 
                 else{
                         /* NO SE SABE SI ESTÁ BIEN */
-                    $query.=" ?item wdt:P20 ?lmuerte.";
+                    $query.=" FILTER(EXISTS{?item wdt:P20 ?lmuerte.} || EXISTS{?item wdt:P570 ?muerte.})";
 
                 }
                
@@ -345,7 +345,7 @@ class JuegoController extends Controller
 
         }
 
-
+        echo '<pre>' . print_r($query . $endquery). '</pre>';
         $resultado=file_get_contents( $endpointUrl . '?format=json&query=' . urlencode($query . $endquery)  );
         $resultadoF2= json_decode($resultado);
         /* HACER QUERY  SPARQL*/ 

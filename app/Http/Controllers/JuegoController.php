@@ -187,13 +187,13 @@ class JuegoController extends Controller
 
                 if ($respuestas[7]==1){
 
-                    $query.=" ?item wdt:P106 wd:Q487596. ";
+                    $query.=" ?item wdt:P106 wd:Q214917. ";
                 
                 }
 
                 else{
 
-                    $query.=" FILTER(NOT EXISTS{?item wdt:P106 wd:Q487596})";
+                    $query.=" FILTER(NOT EXISTS{?item wdt:P106 wd:Q214917})";
 
                 }
             

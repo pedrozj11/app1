@@ -47,3 +47,7 @@ SELECT DISTINCT ?item ?itemLabel ?fechanacim ?genero ?muerte ?lmuerteLabel WHERE
 ¿Tuvó alguna esposa?
   - Si: ?item wdt:P26 ?esposa.
   - No: FILTER(NOT EXISTS{?item wdt:P26 ?esposa})
+
+¿Tiene alguna obra muy famosa?
+  - Si: ?item wdt:P800 ?librof.
+  - No: FILTER(NOT EXISTS{?item wdt:P800 ?librof})

@@ -1,1 +1,1 @@
-Bienvenido a nuestro juego
+<p style="font-size: 22px;">Pincha  <a href="/juego">aquí </a>para acceder al juego</p>

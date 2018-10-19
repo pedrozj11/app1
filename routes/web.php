@@ -23,3 +23,8 @@ Route::post('/juego','JuegoController@preguntar');
 
 Route::get('/fin-juego', 'JuegoController@finalizarJuego');
 
+
+
+Route::get('/fin-juego-malo', function () {
+    return view('finJuegoMalo');
+});

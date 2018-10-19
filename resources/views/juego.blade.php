@@ -39,7 +39,7 @@
 
         <div class="w-100 h-100 d-flex justify-content-center align-items-center ">
 
-        <form action="/juego" class="form" method="POST" style="min-width: 400px">
+        <form action="/juego" class="form" @php if($respuestas!='' && sizeof($respuestas)==11) { echo  "style=' display: none;'"; } else{  echo  "style='min-width: 400px'";}; @endphp method="POST" >
             @csrf
 
                   <h2 style="margin-bottom: 20px;" class="text-center">

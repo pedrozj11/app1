@@ -24,17 +24,21 @@ SELECT DISTINCT ?item ?itemLabel ?fechanacim ?genero ?muerte ?lmuerteLabel WHERE
   - Si: FILTER(NOT EXISTS{?item wdt:P570 ?muerte})
         FILTER(NOT EXISTS{?item wdt:P20 ?lmuerte})
 
-  ¿Escribía poesía?
-    - Si: ?item wdt:P106 wd:Q49757.
-    - No: ¿Escribía novelas?
-            - Si: ?item wdt:P106 wd:Q6625963.
-            - No: ¿Escribía teatro?
-                    - Si: ?item wdt:P106 wd:Q487596.
+¿Escribía poesía?
+  - Si: ?item wdt:P106 wd:Q49757.
+  - No: ¿Escribía novelas?
+       - Si: ?item wdt:P106 wd:Q6625963.
+       - No: ¿Escribía teatro?
+             - Si: ?item wdt:P106 wd:Q487596.
 
-  ¿Tiene hijos?
-  -Si: ?item wdt:P40 ?hijos.
-  -No: FILTER(NOT EXISTS{?item wdt:P40 ?hijos})
+¿Tiene hijos?
+  - Si: ?item wdt:P40 ?hijos.
+  - No: FILTER(NOT EXISTS{?item wdt:P40 ?hijos})
 
 ¿Es/Era cristiano?
-Si: ?item wdt:P140 wd:Q5043.
-No:  FILTER(NOT EXISTS{?item wdt:P140 wd:Q5043})
+  - Si: ?item wdt:P140 wd:Q5043.
+  - No:  FILTER(NOT EXISTS{?item wdt:P140 wd:Q5043})
+
+¿Tiene hermanos?
+  - Si: ?item wdt:P3373 ?hermanos.
+  - No:FILTER(NOT EXISTS{?item wdt:P3373 ?hermanos})

@@ -140,11 +140,12 @@ class JuegoController extends Controller
         $resultado=file_get_contents( $endpointUrl . '?format=json&query=' . urlencode($query . $endquery)  );
 
        $resultadoF= json_decode($resultado);
+    
 
         /* HACER QUERY  SPARQL*/ 
         if(sizeof($resultadoF->results->bindings)>5 && sizeof($resultadoF->results->bindings)!=0){ 
-
-            echo '<div class="w-100 d-flex justify-content-center   "><div class=" w-25 d-flex flex-column justify-content-center aling-items-center"> <p class="text-center">' . "¿Tu autor se llama " . $resultadoF->results->bindings[0]->itemLabel->value . "?".'</p>' . '<a href="/fin-juego" class="btn btn-success">' . "Correcto " .'</a> </div></div>';
+            $id=str_replace("http://www.wikidata.org/entity/","",$resultadoF->results->bindings[0]->item->value);
+            echo '<div class="w-100 d-flex justify-content-center   "><div class=" w-25 d-flex flex-column justify-content-center aling-items-center"> <p class="text-center">' . "¿Tu autor se llama " . $resultadoF->results->bindings[0]->itemLabel->value . "?".'</p>' . '<a href="/fin-juego/'. $id .' " class="btn btn-success">' . "Correcto " .'</a> </div></div>';
             
         };
 
@@ -345,14 +346,15 @@ class JuegoController extends Controller
 
         }
 
-        echo '<pre>' . print_r($query . $endquery). '</pre>';
+       
         $resultado=file_get_contents( $endpointUrl . '?format=json&query=' . urlencode($query . $endquery)  );
         $resultadoF2= json_decode($resultado);
+       
         /* HACER QUERY  SPARQL*/ 
         
         if($resultadoF2!=NULL && $resultadoF2->results!=NULL && sizeof($resultadoF2->results->bindings)<5 && sizeof($resultadoF2->results->bindings)!=0 ){ 
-
-            echo '<div class="w-100 d-flex justify-content-center   "><div class=" w-25 d-flex flex-column justify-content-center aling-items-center"> <p class="text-center">' . "¿Tu autor se llama " . $resultadoF2->results->bindings[0]->itemLabel->value . "?".'</p>' . '<a href="/fin-juego" class="btn btn-success">' . "Correcto " .'</a> </div></div>';
+            $id=str_replace("http://www.wikidata.org/entity/","",$resultadoF2->results->bindings[0]->item->value);
+            echo '<div class="w-100 d-flex justify-content-center   "><div class=" w-25 d-flex flex-column justify-content-center aling-items-center"> <p class="text-center">' . "¿Tu autor se llama " . $resultadoF2->results->bindings[0]->itemLabel->value . "?".'</p>' . '<a href="/fin-juego/'. $id .' "  class="btn btn-success">' . "Correcto " .'</a> </div></div>';
             echo '<div class="w-100 d-flex justify-content-center   "><div class=" w-25 d-flex flex-column justify-content-center aling-items-center"> <a href="/fin-juego-malo" class="btn btn-success" style="margin-top: 20px;"> No es ese  </a> </div></div>';
             
         }
@@ -376,7 +378,6 @@ class JuegoController extends Controller
    public function finalizarJuego(){
 
     
-    return view('finJuego');
 
    }
 }

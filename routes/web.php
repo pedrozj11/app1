@@ -21,7 +21,10 @@ Route::get('/juego', function () {
 
 Route::post('/juego','JuegoController@preguntar');
 
-Route::get('/fin-juego', 'JuegoController@finalizarJuego');
+Route::get('/fin-juego/{id}', function ($id) {
+    return view('finJuego', ['id' => $id]);
+});
+
 
 
 

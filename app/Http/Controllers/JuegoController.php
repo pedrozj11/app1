@@ -39,7 +39,7 @@ class JuegoController extends Controller
 
         for ($i=1; $i <= 5 ; $i++) { 
 
-            echo $respuestas[$i] .  '<br>';
+
 
             if($i==1){
                 /* TIENE QUE SER HOMBRE = SI */
@@ -147,9 +147,9 @@ class JuegoController extends Controller
             print_r($resultadoF);
         echo '</pre>';*/
         /* HACER QUERY  SPARQL*/ 
-        if(sizeof($resultadoF->results->bindings)>3){ 
+        if(sizeof($resultadoF->results->bindings)<5s){ 
 
-            echo "¿Tu autor se llama " . $resultadoF->results->bindings[0]->itemLabel->value . "?" . '<a href="/fin-juego">' . "Correcto " .'</a>';
+            echo '<div class="w-100 d-flex justify-content-center   "><div class=" w-25 d-flex flex-column justify-content-center aling-items-center"> <p class="text-center">' . "¿Tu autor se llama " . $resultadoF->results->bindings[0]->itemLabel->value . "?".'</p>' . '<a href="/fin-juego" class="btn btn-success">' . "Correcto " .'</a> </div></div>';
         };
 
 

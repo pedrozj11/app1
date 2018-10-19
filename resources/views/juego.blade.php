@@ -13,7 +13,7 @@
     <body class="" style="padding-top: 70px; padding-bottom: 120px;">
         <?php 
         
-        $pregunta=array('¿Es un hombre?','¿Nació antes de 1500?','¿Tiene hijos?','¿Está vivo?', '¿Escribía poesía?', '¿Escribía novela?', '¿Escribía teatro?', '¿Murió de Cancer?');
+        $pregunta=array('¿Es un hombre?','¿Nació antes de 1500?','¿Tiene hijos?','¿Está vivo?', '¿Escribía poesía?', '¿Escribía novela?', '¿Escribía teatro?', '¿Es/Era cristiano?','¿Tiene/tenía hermanos?','¿Tiene tenía Esposo/esposa?','sd');
 
         
     

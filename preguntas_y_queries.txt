@@ -51,3 +51,5 @@ SELECT DISTINCT ?item ?itemLabel ?fechanacim ?genero ?muerte ?lmuerteLabel WHERE
 ¿Tiene alguna obra muy famosa?
   - Si: ?item wdt:P800 ?librof.
   - No: FILTER(NOT EXISTS{?item wdt:P800 ?librof})
+
+  SELECT DISTINCT ?item ?itemLabel ?fechanacim ?genero ?muerte ?lmuerteLabel WHERE { SERVICE wikibase:label { bd:serviceParam wikibase:language "[AUTO_LANGUAGE],en". } ?item wdt:P106 ?ocupacion. ?ocupacion wdt:P279 ?ocupaciones. VALUES (?ocupaciones) { (wd:Q36180) (wd:Q49757) (wd:Q6625963) (wd:Q214917) } ?item wdt:P106 wd:Q6625963. ?item wdt:P106 wd:Q487596. ?item wdt:P140 wd:Q5043. FILTER(NOT EXISTS{?item wdt:P3373 ?hermanos})?item wdt:P26 ?esposa. } LIMIT 20

@@ -147,7 +147,7 @@ class JuegoController extends Controller
             print_r($resultadoF);
         echo '</pre>';*/
         /* HACER QUERY  SPARQL*/ 
-        if(sizeof($resultadoF->results->bindings)<5s){ 
+        if(sizeof($resultadoF->results->bindings)>5 && sizeof($resultadoF->results->bindings)!=0){ 
 
             echo '<div class="w-100 d-flex justify-content-center   "><div class=" w-25 d-flex flex-column justify-content-center aling-items-center"> <p class="text-center">' . "¿Tu autor se llama " . $resultadoF->results->bindings[0]->itemLabel->value . "?".'</p>' . '<a href="/fin-juego" class="btn btn-success">' . "Correcto " .'</a> </div></div>';
         };
@@ -158,71 +158,119 @@ class JuegoController extends Controller
     /*SIGUIENTES 3 PREGUNTAS */
 
 
-    if(sizeof($respuestas)==8){
+    if(sizeof($respuestas)==11){
 
-        for ($i=5; $i < 7; $i++) {
-            
+        for ($i=6; $i <= 10; $i++) {
+        
             
             /* ESCRIBÍA NOVELA? */
-
-            if($i==5){
-
-                if ($respuestas[5]==1){
-
-                    $query.="?item wdt:P106 wd:Q6625963.";
-                
-                }
-
-                else{
-
-                    $query.="FILTER(NOT EXISTS{?item wdt:P106 wd:Q6625963})";
-
-                }
-            
-            
-            }
 
             if($i==6){
 
                 if ($respuestas[6]==1){
 
-                    $query.=" ?item wdt:P106 wd:Q487596.";
+                    $query.="?item wdt:P106 wd:Q6625963. ";
                 
                 }
 
                 else{
 
-                    $query.="FILTER(NOT EXISTS{?item wdt:P106 wd:Q487596})";
+                    $query.=" FILTER(NOT EXISTS{?item wdt:P106 wd:Q6625963})";
 
                 }
             
             
             }
 
+            /* ESCRIBIA TEATRO */
             if($i==7){
 
                 if ($respuestas[7]==1){
 
-                    $query.="";
+                    $query.=" ?item wdt:P106 wd:Q487596. ";
                 
                 }
 
                 else{
 
-                    $query.="";
+                    $query.=" FILTER(NOT EXISTS{?item wdt:P106 wd:Q487596})";
 
                 }
             
             
             }
-        }
-        if(COUNT($respuesta)==1){
 
-            return view('finJuego', ['bool'=>'ganaste']);
+            /** ERA CRISTIANO */
+            if($i==8){
+
+                if ($respuestas[8]==1){
+
+                    $query.="?item wdt:P140 wd:Q5043. ";
+                
+                }
+
+                else{
+
+                    $query.=" FILTER(NOT EXISTS{?item wdt:P140 wd:Q5043}) ";
+
+                }
+            
+            
+            }
+
+            /** TENIA HERMANOS */
+
+            if($i==9){
+
+                if ($respuestas[9]==1){
+
+                    $query.=" ?item wdt:P3373 ?hermanos. ";
+                
+                }
+
+                else{
+
+                    $query.=" FILTER(NOT EXISTS{?item wdt:P3373 ?hermanos})";
+
+                }
+            
+            
+            }
+
+            if($i==10){
+
+                if ($respuestas[10]==1){
+
+                    $query.="?item wdt:P26 ?esposa. ";
+                
+                }
+
+                else{
+
+                    $query.=" SFILTER(NOT EXISTS{?item wdt:P26 ?esposa}) ";
+
+                }
+            
+            
+            }
 
         }
+
+        echo $query . $endquery;
+        $resultado=file_get_contents( $endpointUrl . '?query=' . urlencode($query . $endquery)  );
+        $resultadoF= json_decode($resultado);
+        echo '<pre>';
+            print_r($resultadoF);
+        echo '</pre>';
+        /* HACER QUERY  SPARQL*/ 
         
-       
+        if($resultadoF!=NULL && $resultadoF->results!=NULL && sizeof($resultadoF->results->bindings)<5 && sizeof($resultadoF->results->bindings)!=0 ){ 
+
+            echo '<div class="w-100 d-flex justify-content-center   "><div class=" w-25 d-flex flex-column justify-content-center aling-items-center"> <p class="text-center">' . "¿Tu autor se llama " . $resultadoF->results->bindings[0]->itemLabel->value . "?".'</p>' . '<a href="/fin-juego" class="btn btn-success">' . "Correcto " .'</a> </div></div>';
+            
+        };
+        
+
     }
            
         
